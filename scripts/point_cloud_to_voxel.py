@@ -16,7 +16,7 @@ def visualize(pcd_list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--extrinsics_file_path', type=str, default='/home/kevin/Documents/camera-calibration/calib/azure_kinect_overhead/azure_kinect_overhead_to_world.tf') 
+    parser.add_argument('--extrinsics_file_path', type=str, default='/home/sony/Documents/sony-demo/calib/azure_kinect_overhead_to_world.tf') 
     args = parser.parse_args()
 
     azure_kinect_to_world_transform = RigidTransform.load(args.extrinsics_file_path)
@@ -43,7 +43,9 @@ if __name__ == '__main__':
 
         voxel_list_msg = VoxelList()
 
-        voxel_list_msg.voxel_list = [make_voxel(np.concatenate([voxel_grid.origin + pt.grid_index*voxel_grid.voxel_size, pt.color])) for pt in voxel_grid.get_voxels()]
+        voxel_list = np.array([np.concatenate([voxel_grid.origin + pt.grid_index*voxel_grid.voxel_size, pt.color]) for pt in voxel_grid.get_voxels()])
+        voxel_list_msg.num_voxels = voxel_list.shape[0]
+        voxel_list_msg.data = voxel_list.flatten()
         voxel_pub.publish(voxel_list_msg)
 
     rospy.Subscriber("/points2", PointCloud2, publishVoxelList)
