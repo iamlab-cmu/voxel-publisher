@@ -1,0 +1,3 @@
+[submodule "catkin_ws/src/voxel-msgs"]
+	path = catkin_ws/src/voxel-msgs
+	url = https://github.com/iamlab-cmu/voxel-msgs.git
