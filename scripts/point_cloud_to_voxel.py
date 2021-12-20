@@ -16,7 +16,7 @@ def visualize(pcd_list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--extrinsics_file_path', type=str, default='/home/sony/Documents/sony-demo/calib/azure_kinect_overhead_to_world.tf') 
+    parser.add_argument('--extrinsics_file_path', type=str, default='../camera-calibration/calib/azure_kinect_overhead/azure_kinect_overhead_to_world.tf') 
     args = parser.parse_args()
 
     azure_kinect_to_world_transform = RigidTransform.load(args.extrinsics_file_path)
